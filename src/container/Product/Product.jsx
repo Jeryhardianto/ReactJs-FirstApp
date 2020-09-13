@@ -18,6 +18,8 @@ import CardProduct from '../CardProduct/CardProduct';
     render() {
         return (
             <Fragment>
+                <h1>Halaman Product</h1>
+                <hr />
                 <div className="header">
                     <div className="logo">
                         <img src="https://ecs7.tokopedia.net/assets-tokopedia-lite/v2/zeus/production/e5b8438b.svg" alt="" srcset="" />

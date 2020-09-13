@@ -51,16 +51,38 @@ body {
 }
 
 .remove {
-    padding: 12px;
-    background-color: #ff0080;
-    color: white;
-    margin-top: 5px;
-    border-radius: 4px;
     outline: none;
+    border: 1px solid #2196f3;
+    padding: 10px 30px;
+    border-radius: 4px;
+    color: #2196f3;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+button.update {
+    outline: none;
+    border: 1px solid #2196f3;
+    padding: 10px 30px;
+    border-radius: 4px;
+    color: #2196f3;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 30px;
 }
 
 .remove:hover {
     cursor: pointer;
+    background-color: #ff0000;
+    color: white;
+}
+
+.update:hover {
+    cursor: pointer;
+    background-color: #d9f709;
+    color: white;
 }
 
 .form-add-post {
@@ -107,6 +129,6 @@ button.btn-submit {
 
 .btn-submit:hover {
     cursor: pointer;
-    background-color: #ff0080;
+    background-color: #0459d8;
     color: white;
 }

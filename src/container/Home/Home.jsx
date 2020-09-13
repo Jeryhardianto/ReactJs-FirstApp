@@ -1,16 +1,23 @@
 //* Basic Component
 //! snipet import -> rce
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react';
 // import YouTubeComp from '../../component/YutubeComponent/YouTubeComponent'
-// import Product from '../Product/Product'
+import Product from '../Product/Product'
 // import LifeCycleCop from '../LifeCycleComp/LifeCycleComp'
-// import LifeCycleComp from '../LifeCycleComp/LifeCycleComp'
-import BlogPost from '../BlogPost/BlogPost'
+import LifeCycleComp from '../LifeCycleComp/LifeCycleComp'
+import BlogPost from '../BlogPost/BlogPost';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link, BrowserRouter
+} from "react-router-dom";
+import './Home.css'
 
 export class Home extends Component {
     render() {
         return (
-            <div>
+            <BrowserRouter>
+                {/* <div> */}
             {/* <p>YouTube Component</p>
             <hr/>
             <YouTubeComp 
@@ -26,10 +33,23 @@ export class Home extends Component {
            {/* <p>LifeCycleComponent</p>
            <hr/>
            <LifeCycleComp/> */}
-           <p>Blog Post</p>
+                {/* <p>Blog Post</p>
            <hr/>
            <BlogPost />
-            </div>
+            </div> */}
+                <Fragment>
+                    {/* Routing */}
+                    <div className="navigation">
+                        <Link to="/">Blog Post</Link>
+                        <Link to="/product">Product</Link>
+                        <Link to="/lifecycle">LifeCycleComp</Link>
+                    </div>
+                    {/* exact -> tidak sama persis */}
+                    <Route path="/" exact component={BlogPost} />
+                    <Route path="/product" component={Product} />
+                    <Route path="/lifecycle" component={LifeCycleComp} />
+                </Fragment>
+            </BrowserRouter>
         )
     }
 

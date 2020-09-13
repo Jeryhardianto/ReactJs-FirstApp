@@ -10,12 +10,15 @@ import Axios from 'axios'
  class BlogPost extends Component {
      state = {
          post:[],
-         formBlogPost:{
+         formBlogPost:{ 
              id:1,
              title:'',
              body:'',
              userId:1
-         }
+         },
+         //!apakah fungsi ini fungsi update ?
+         isUpdate: false
+
      }
 
     //!memanggil API dengan AXIOS / GET
@@ -36,17 +39,54 @@ import Axios from 'axios'
              console.log(res);
              //!menggantikan data baru atau menampilkan yg terbaru
              this.getPostAPI();
+             this.setState({
+                 isUpdate: false,
+                 formBlogPost: {
+                     id: 1,
+                     title: '',
+                     body: '',
+                     userId: 1
+                 },
+             })
          }, (err) =>{
              console.log('err :', err);
          })
      }
 
-     //!Menghapus data
+     //*Menghapus data /Dalete
      handleRemove = (data) => {
         // console.log(data);
         //!mengahapus data
          Axios.delete(`http://localhost:3004/posts/${data}`).then((result)=> {
             this.getPostAPI()
+         })
+     }
+     //*Menggubah data atau Update
+     handleUpdate = (data) => {
+         //  console.log(data);
+         //!mengupdate terlebih dahulu fromBlogPost unutk mengirim data ke form
+         this.setState({
+             formBlogPost: data,
+             isUpdate: true
+         })
+
+
+     }
+     //* Put 
+     putDataAPI = () => {
+         Axios.put(`http://localhost:3004/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost).then((res) => {
+             //  console.log(res);
+             this.getPostAPI();
+             //!mengebalikan proses input keawal
+             this.setState({
+                 isUpdate: false,
+                 formBlogPost: {
+                     id: 1,
+                     title: '',
+                     body: '',
+                     userId: 1
+                 },
+             })
          })
      }
 
@@ -56,8 +96,12 @@ import Axios from 'axios'
 
          //*membuat id dinamis
          let timestamp = new Date().getTime();
+         //!jangan mengupdate id letika dalam posisi dalam update
+         if (!this.state.isUpdate) {
+             //*ketika nilai isUpdate bernilai false
+             formBlogPostNew['id'] = timestamp;
+         }
         //  console.log(timestamp);
-        formBlogPostNew['id'] = timestamp;
         //  console.log(event.target.name);
         //  console.log('init state: ', this.state.formBlogPost);
         //  console.log('new value: ', formBlogPostNew);
@@ -68,12 +112,21 @@ import Axios from 'axios'
              formBlogPost: formBlogPostNew
             })
      }
-
+     
      //!membuat event ketika tombol submit diklik
-     handleSubmit =()=>{
+     handleSubmit = () => {
         //  console.log(this.state.formBlogPost);
-        //!memanggil data atau function postDataAPI
-        this.postDataAPI();
+         //!submit -> true -> update data
+         //!submit -> false -> post/insert data
+
+         if (this.state.isUpdate) {
+             this.putDataAPI();
+             ;
+         } else {
+            //!memanggil data atau function postDataAPI
+            this.postDataAPI();
+        }
+
      }
      componentDidMount(){
         //!memanggil API dengan fetch
@@ -85,7 +138,7 @@ import Axios from 'axios'
         //              post: json
         //          })
         //      })
-        //!menggail data
+        //!menggil data
         this.getPostAPI();
       
      }
@@ -93,18 +146,23 @@ import Axios from 'axios'
         //! fragment -> ketika lenih dari 1 parent
         return (
             <Fragment>
+                <h1>Halaman BlogPost</h1>
+                <hr />
            <p className="section-title">Blog Post</p>
            <div className="form-add-post">
                <label htmlFor="title">Title</label>
-               <input type="text" name="title" placeholder="add title" onChange={this.handleFormChange}/>
+                    <input type="text" value={this.state.formBlogPost.title} name="title" placeholder="add title" onChange={this.handleFormChange} />
                <label htmlFor="body">Blog Content</label>
-               <textarea name="body" id="body" cols="30" rows="10" onChange={this.handleFormChange}></textarea>
-               <button className="btn-submit" onClick={this.handleSubmit}>Simpan</button>
+                    <textarea name="body" value={this.state.formBlogPost.body} id="body" cols="30" rows="10" onChange={this.handleFormChange}></textarea>
+                    {/* operasi ternari ketika isUpdate bernilai true -> update / False -> save */}
+                    {
+                        this.state.isUpdate ? <button className="btn-submit" onClick={this.handleSubmit}>Update</button> : <button className="btn-submit" onClick={this.handleSubmit}>Save</button>
+                    }
            </div>
            {/* Menampilkan hasil json posts ke tampilan atau front-end */}
            {
                this.state.post.map(post => {
-                   return <Post key={post.id} data={post} remove={this.handleRemove}/> 
+                   return <Post key={post.id} data={post} remove={this.handleRemove} update={this.handleUpdate} /> 
                  {/* menggatikan data={post}  title = { post.title } body = { post.body } */}
                })
            }
