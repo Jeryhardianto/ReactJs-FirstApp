@@ -8,7 +8,7 @@ const YouTubeComp = (props) => {
     return (
         <div className="youtube-wrapper">
          <div className="img-thumb">
-                <img src="https://d17ivq9b7rppb3.cloudfront.net/small/avatar/202008152139394cabf249b8bbeedb422049fc5659d287.png" alt="" />
+                <img src="http://placeimg.com/200/150/any" alt="" />
              <p className="time">{props.time}</p>
          </div>
             <p className="title">{props.title}</p>

@@ -1,0 +1,21 @@
+.p-hooks {
+    padding: 40px;
+}
+
+.p-hooks button {
+    outline: none;
+    border: 1px solid #2196f3;
+    padding: 10px 30px;
+    border-radius: 4px;
+    color: #2196f3;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.p-hooks button:hover {
+    background: yellow;
+    color: black;
+    cursor: pointer;
+}

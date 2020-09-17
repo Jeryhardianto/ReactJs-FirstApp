@@ -21,8 +21,8 @@ body {
 }
 
 .img-thumb {
-    width: 200px;
-    height: 150px;
+    /* width: 200px;
+    height: 100px; */
     margin-right: 20px;
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 .content {
-    float: 1;
+    flex: 1;
 }
 
 .content p.title {
