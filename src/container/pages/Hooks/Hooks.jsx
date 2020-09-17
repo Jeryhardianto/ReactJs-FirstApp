@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect, Fragment } from 'react';
 import './Hooks.css';
 // class Hooks extends Component {
 //     state = {
@@ -8,6 +8,17 @@ import './Hooks.css';
 //         this.setState({
 //             count: this.state.count + 1
 //         })
+//     }
+//     //!LifeCycle Hooks
+//     componentDidMount() {
+//         document.title = `Title Change: ${this.state.count}`
+//     }
+//     componentDidUpdate() {
+//         document.title = `Title Change: ${this.state.count}`
+//     }
+
+//     componentWillUnmount() {
+//         document.title = 'React App'
 //     }
 
 //     render() {
@@ -24,16 +35,28 @@ import './Hooks.css';
 
 //* StateLes Componet
 //* HOOKS IMPLEMENTASI
+//* Side Effect/LifeCycle
 const Hooks = () => {
     const [count, SetCount] = useState(0);
 
+    useEffect(() => {
+        //! componentDidMount() & componentDidUpdate()
+        document.title = `Title Change: ${count}`
+        return () => {
+            //!componentWillUnmount()
+            document.title = 'React App'
+        }
+    })
+
     return (
-        <div className="p-hooks">
+        <Fragment>
             <h1>Halamana Hooks</h1>
             <hr />
+            <div className="p-hooks">
             <p >Nilai saya saat ini adalah : {count}</p>
             <button onClick={() => SetCount(count + 1)}>Update Nilai</button>
         </div>
+        </Fragment>
     )
 }
 
